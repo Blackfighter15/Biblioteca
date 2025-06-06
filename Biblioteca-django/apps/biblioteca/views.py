@@ -36,13 +36,13 @@ def nuevo_usuario(request):
         return redirect('lista_usuarios')
     return render(request, 'biblioteca/formulario.html', {'form': form, 'titulo': 'Nuevo Usuario'})
 
-@login_required
+
 def lista_libros(request):
     libros = Libro.objects.all()
     print(type({'libros': libros}))
     return render(request, 'biblioteca/lista_libros.html', {'libros': libros})
 
-@login_required
+
 def nuevo_libro(request):
     form = LibroForm(request.POST or None)
     if form.is_valid():
@@ -50,7 +50,7 @@ def nuevo_libro(request):
         return redirect('lista_libros')
     return render(request, 'biblioteca/formulario.html', {'form': form, 'titulo': 'Nuevo Libro'})
 
-@login_required
+
 def lista_prestamos(request):
     prestamos = Prestamo.objects.all()
     return render(request, 'biblioteca/lista_prestamos.html', {'prestamos': prestamos})
