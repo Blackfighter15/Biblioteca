@@ -10,12 +10,13 @@ DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ['bibliotecacesar.up.railway.app', 'localhost', '127.0.0.1']
 
-# Paso 3: configuración temporal para probar CSRF
-CSRF_COOKIE_SECURE = False  # Desactiva requerimiento cookie segura (solo para testeo)
+# CSRF y cookies seguras para producción con HTTPS
 CSRF_TRUSTED_ORIGINS = [
     "https://bibliotecacesar.up.railway.app",
-    "https://bibliotecacesar.up.railway.app/",
 ]
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 
 INSTALLED_APPS = [
     'django.contrib.admin',
