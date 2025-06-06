@@ -15,7 +15,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 CSRF_TRUSTED_ORIGINS = [
     "https://bibliotecacesar.up.railway.app",
-    "https://bibliotecacesar.up.railway.app:443",
+    
 ]
 
 CSRF_COOKIE_SECURE = false
