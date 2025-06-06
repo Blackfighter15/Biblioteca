@@ -8,7 +8,15 @@ SECRET_KEY = 'django-insecure-demo-key'
 
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['bibliotecacesar.up.railway.app']  # O coloca tu dominio Railway
+ALLOWED_HOSTS = [
+    "bibliotecacesar.up.railway.app",
+    "localhost",  # si lo usas localmente
+    "127.0.0.1",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://bibliotecacesar.up.railway.app"
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
