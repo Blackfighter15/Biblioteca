@@ -17,8 +17,8 @@ CSRF_TRUSTED_ORIGINS = [
     "https://bibliotecacesar.up.railway.app",
 ]
 
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = false
+SESSION_COOKIE_SECURE = false
 
 INSTALLED_APPS = [
     'django.contrib.admin',
