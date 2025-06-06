@@ -4,15 +4,16 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Usa variable de entorno para SECRET_KEY por seguridad
+# SECRET_KEY: usa variable de entorno en producción, si no usa un valor por defecto (no recomendado)
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-demo-key')
 
-# DEBUG es False por defecto, para producción
+# DEBUG desactivado por defecto para producción
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-# Ajusta los hosts permitidos (agrega más si usas otros dominios o localhost)
-ALLOWED_HOSTS = ['bibliotecacesar.up.railway.app', 'localhost', '127.0.0.1']
+# Hosts permitidos
+ALLOWED_HOSTS = ['bibliotecacesar.up.railway.app']
 
+# Orígenes confiables para CSRF (IMPORTANTE para evitar error 403)
 CSRF_TRUSTED_ORIGINS = [
     'https://bibliotecacesar.up.railway.app',
 ]
@@ -32,7 +33,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',  # CSRF Middleware activo
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -58,27 +59,20 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'biblioteca_django.wsgi.application'
 
+# Configura la base de datos con dj_database_url (usa DATABASE_URL de variables de entorno)
 DATABASES = {
     'default': dj_database_url.config(
         default=os.environ.get('DATABASE_URL'),
         conn_max_age=600,
-        ssl_require=True
+        ssl_require=True,
     )
 }
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',},
 ]
 
 LANGUAGE_CODE = 'es-mx'
@@ -91,7 +85,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# Carpeta donde collectstatic dejará los archivos estáticos para producción
+# Carpeta donde collectstatic dejará archivos para producción
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
