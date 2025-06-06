@@ -14,8 +14,7 @@ ALLOWED_HOSTS = ['bibliotecacesar.up.railway.app', 'localhost', '127.0.0.1']
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://bibliotecacesar.up.railway.app",
-    
+    'http://*','https://bibliotecacesar.up.railway.app',
 ]
 
 CSRF_COOKIE_SECURE = false
