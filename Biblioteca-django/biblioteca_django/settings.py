@@ -10,7 +10,9 @@ DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ['*']
 
-# CSRF y cookies seguras para producción con HTTPS
+# Le indica a Django que cuando reciba 'X-Forwarded-Proto: https' trate la petición como HTTPS
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 CSRF_TRUSTED_ORIGINS = [
     "https://bibliotecacesar.up.railway.app",
 ]
