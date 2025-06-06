@@ -55,7 +55,7 @@ def lista_prestamos(request):
     prestamos = Prestamo.objects.all()
     return render(request, 'biblioteca/lista_prestamos.html', {'prestamos': prestamos})
 
-@login_required
+
 def nuevo_prestamo(request):
     form = PrestamoForm(request.POST or None)
     if form.is_valid():
@@ -68,12 +68,12 @@ def nuevo_prestamo(request):
             return redirect('lista_prestamos') 
     return render(request, 'biblioteca/formulario.html', {'form': form, 'titulo': 'Nuevo Préstamo'})
 
-@login_required
+
 def lista_autores(request):
     autores = Autor.objects.all()  
     return render(request, 'biblioteca/lista_autores.html', {'autores': autores})
 
-@login_required
+
 def nuevo_autor(request):
     form = AutorForm(request.POST or None)  
     if request.method == 'POST':  
@@ -84,7 +84,7 @@ def nuevo_autor(request):
             print(form.errors)  
     return render(request, 'biblioteca/formulario.html', {'form': form, 'titulo': 'Nuevo Autor'})
 
-@login_required
+
 def editar_libro(request, pk):
     libro = get_object_or_404(Libro, pk=pk)
     form = LibroForm(request.POST or None, instance=libro)
@@ -93,7 +93,7 @@ def editar_libro(request, pk):
         return redirect('lista_libros')
     return render(request, 'biblioteca/formulario.html', {'form': form, 'titulo': 'Editar Libro'})
 
-@login_required
+
 def eliminar_libro(request, pk):
     libro = get_object_or_404(Libro, pk=pk)
     if request.method == 'POST':
@@ -101,7 +101,7 @@ def eliminar_libro(request, pk):
         return redirect('lista_libros')
     return render(request, 'biblioteca/confirmar_eliminar_libro.html', {'objeto': libro})
 
-@login_required
+
 def editar_autor(request, pk):
     autor = get_object_or_404(Autor, pk=pk)
     form = AutorForm(request.POST or None, instance=autor)
@@ -118,7 +118,7 @@ def eliminar_autor(request, pk):
         return redirect('lista_autores')
     return render(request, 'biblioteca/confirmar_eliminar_autor.html', {'objeto': autor})
 
-@login_required
+
 def editar_usuario(request, pk):
     usuario = get_object_or_404(Usuario, pk=pk)
     form = UsuarioForm(request.POST or None, instance=usuario)
@@ -127,7 +127,7 @@ def editar_usuario(request, pk):
         return redirect('lista_usuarios')
     return render(request, 'biblioteca/formulario.html', {'form': form, 'titulo': 'Editar usuario'})
 
-@login_required
+
 def eliminar_usuario(request, pk):
     usuario = get_object_or_404(Usuario, pk=pk)
     if request.method == 'POST':
@@ -135,7 +135,7 @@ def eliminar_usuario(request, pk):
         return redirect('lista_usuarios')
     return render(request, 'biblioteca/confirmar_eliminar_usuario.html', {'objeto': usuario})
 
-@login_required
+
 def editar_prestamo(request, pk):
     prestamo = get_object_or_404(Prestamo, pk=pk)
     form = PrestamoForm(request.POST or None, instance=prestamo)
@@ -144,7 +144,7 @@ def editar_prestamo(request, pk):
         return redirect('lista_prestamos')
     return render(request, 'biblioteca/formulario.html', {'form': form, 'titulo': 'Editar Prestamo'})
 
-@login_required
+
 def eliminar_prestamo(request, pk):
     prestamo = get_object_or_404(Prestamo, pk=pk)
     if request.method == 'POST':
