@@ -1,0 +1,18 @@
+{% extends 'biblioteca/base.html' %}
+{% block title %}Préstamos{% endblock %}
+{% block content %}
+    <h3 class="ui header">Préstamos</h3>
+    <a href="{% url 'nuevo_prestamo' %}" class="ui green button">Nuevo Préstamo</a>
+    <table class="ui celled table">
+        <thead><tr><th>Usuario</th><th>Libro</th><th>Fecha Préstamo</th><th>Devolución</th><th>Acciones</th></tr></thead>
+        <tbody>
+            {% for p in prestamos %}
+            <tr><td>{{ p.usuario }}</td><td>{{ p.libro }}</td><td>{{ p.fecha_prestamo }}</td><td>{{ p.fecha_devolucion }}</td>
+                <td>
+                    <a class="ui button blue mini" href="{% url 'editar_prestamo' p.id %}">Editar</a>
+                    <a class="ui button red mini" href="{% url 'eliminar_prestamo' p.id %}">Eliminar</a>
+                </td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

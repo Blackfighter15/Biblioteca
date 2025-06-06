@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Biblioteca{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css">
+    <style>
+        body {
+            background-color: #f9f9f9;
+        }
+
+        .main-container {
+            margin-top: 40px;
+        }
+
+        .top-bar {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .right.menu form {
+            margin-left: 1em;
+        }
+
+        /* Estilos personalizados para tablas */
+        table.ui.table {
+            font-size: 0.95em;
+            border-radius: 6px;
+            margin-top: 1.5em;
+        }
+
+        table.ui.table thead th {
+            background-color: #f3f4f5;
+            color: #333;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 2px solid #ddd;
+        }
+
+        table.ui.table tbody tr:nth-child(even) {
+            background-color: #fcfcfc;
+        }
+
+        table.ui.table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        table.ui.table td, table.ui.table th {
+            padding: 0.8em 1em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="ui container main-container">
+
+    <div class="ui grid top-bar">
+        <div class="eight wide column">
+            <h2 class="ui header">📚 Biblioteca</h2>
+        </div>
+        <div class="eight wide column">
+            <div class="ui secondary menu right">
+                <a class="item" href="{% url 'index' %}">Inicio</a>
+                <a class="item" href="{% url 'lista_usuarios' %}">Usuarios</a>
+                <a class="item" href="{% url 'lista_libros' %}">Libros</a>
+                <a class="item" href="{% url 'lista_prestamos' %}">Préstamos</a>
+                <a class="item" href="{% url 'lista_autores' %}">Autores</a>
+
+                {% if user.is_authenticated %}
+                    <div class="item">Hola, <strong>{{ user.username }}</strong></div>
+                    <form action="{% url 'logout' %}" method="POST" class="item">
+                        {% csrf_token %}
+                        <button type="submit" class="ui button red small">Cerrar sesión</button>
+                    </form>
+                {% else %}
+                    <a class="item" href="{% url 'login' %}">
+                        <button class="ui button primary small">Iniciar sesión</button>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="ui segment">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+</div>
+
+</body>
+</html>

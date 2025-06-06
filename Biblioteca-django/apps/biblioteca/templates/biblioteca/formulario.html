@@ -1,0 +1,61 @@
+{% extends 'biblioteca/base.html' %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="ui raised very padded text container segment">
+    <h3 class="ui top attached header">
+        <i class="edit icon"></i>
+        <div class="content">{{ titulo }}</div>
+    </h3>
+
+    <div class="ui attached segment">
+        <form method="post" class="ui form">
+            {% csrf_token %}
+
+            <div class="ui two column stackable grid">
+                {% for field in form.visible_fields %}
+                    <div class="column">
+                        <div class="field {% if field.errors %}error{% endif %}">
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.help_text %}
+                                <small class="ui grey text">{{ field.help_text }}</small>
+                            {% endif %}
+                            {% for error in field.errors %}
+                                <div class="ui pointing red basic label">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="ui divider"></div>
+
+            <div class="ui buttons">
+                <button class="ui primary button" type="submit">
+                    <i class="save icon"></i> Guardar
+                </button>
+                <div class="or"></div>
+                <a href="javascript:history.back()" class="ui button">
+                    <i class="arrow left icon"></i> Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- jQuery UI Datepicker -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<script>
+    $(document).ready(function () {
+        $(".datepicker").datepicker({
+            dateFormat: 'yy-mm-dd',
+            minDate: 0
+        });
+    });
+</script>
+{% endblock %}

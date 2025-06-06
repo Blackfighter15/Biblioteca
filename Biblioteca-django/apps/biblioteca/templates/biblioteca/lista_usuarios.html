@@ -1,0 +1,18 @@
+{% extends 'biblioteca/base.html' %}
+{% block title %}Usuarios{% endblock %}
+{% block content %}
+    <h3 class="ui header">Usuarios</h3>
+    <a href="{% url 'nuevo_usuario' %}" class="ui green button">Nuevo Usuario</a>
+    <table class="ui celled table">
+        <thead><tr><th>Nombre</th><th>Correo</th><th>Fecha de Registro</th><th>Acciones</th></tr></thead>
+        <tbody>
+            {% for u in usuarios %}
+            <tr><td>{{ u.nombre }}</td><td>{{ u.correo }}</td><td>{{ u.fecha_registro }}</td>
+                <td>
+                    <a class="ui button blue mini" href="{% url 'editar_usuario' u.id %}">Editar</a>
+                    <a class="ui button red mini" href="{% url 'eliminar_usuario' u.id %}">Eliminar</a>
+                </td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
