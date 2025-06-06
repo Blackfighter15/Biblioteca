@@ -1,13 +1,14 @@
 import os
+import dj_database_url
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-demo-key'
 
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']  # O coloca tu dominio Railway
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -50,16 +51,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'biblioteca_django.wsgi.application'
 
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'biblioteca',
-        'USER': 'postgres',
-        'PASSWORD': 'Remoto2024',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL'),
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
 
 AUTH_PASSWORD_VALIDATORS = []
@@ -70,12 +67,15 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR / 'staticfiles']
+
+# Elimina la siguiente línea si no tienes la carpeta
+# STATICFILES_DIRS = [BASE_DIR / 'staticfiles']
+
+# Asegúrate de tener esta línea
+STATIC_ROOT = BASE_DIR / 'static'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_URL = 'login'  # Redirige a esta URL si no estás logueado
-LOGIN_REDIRECT_URL = '/'  # A dónde ir después de hacer login
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = 'login'
-
-
