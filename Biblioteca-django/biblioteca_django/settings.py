@@ -8,7 +8,7 @@ SECRET_KEY = 'django-insecure-demo-key'
 
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['*']  # O coloca tu dominio Railway
+ALLOWED_HOSTS = ['https://bibliotecacesar.up.railway.app']  # O coloca tu dominio Railway
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -79,3 +79,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = 'login'
+
