@@ -4,11 +4,14 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-demo-key'
+# Usa variable de entorno para SECRET_KEY por seguridad
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-demo-key')
 
-DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+# DEBUG es False por defecto, para producción
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['bibliotecacesar.up.railway.app']  # O coloca tu dominio Railway
+# Ajusta los hosts permitidos (agrega más si usas otros dominios o localhost)
+ALLOWED_HOSTS = ['bibliotecacesar.up.railway.app', 'localhost', '127.0.0.1']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -59,24 +62,36 @@ DATABASES = {
     )
 }
 
-AUTH_PASSWORD_VALIDATORS = []
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
 
 LANGUAGE_CODE = 'es-mx'
+
 TIME_ZONE = 'America/Mexico_City'
+
 USE_I18N = True
+
 USE_TZ = True
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
-# Elimina la siguiente línea si no tienes la carpeta
-# STATICFILES_DIRS = [BASE_DIR / 'staticfiles']
-
-# Asegúrate de tener esta línea
-STATIC_ROOT = BASE_DIR / 'static'
+# Carpeta donde collectstatic dejará los archivos estáticos para producción
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = 'login'
-
