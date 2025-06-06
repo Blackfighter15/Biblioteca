@@ -2,6 +2,22 @@ from django.shortcuts import render, redirect,get_object_or_404
 from .models import Usuario, Libro, Prestamo,Autor
 from .forms import UsuarioForm, LibroForm, PrestamoForm,AutorForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login as auth_login
+
+def login_view(request):
+    if request.method == 'POST':
+        # Mostrar el header Origin para debug
+        print("Origin header recibido:", request.META.get('HTTP_ORIGIN'))
+
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            auth_login(request, form.get_user())
+            return redirect('index')  # Cambia 'index' por la url que uses después del login
+    else:
+        form = AuthenticationForm()
+
+    return render(request, 'biblioteca/login.html', {'form': form})
 
 @login_required
 def index(request):
