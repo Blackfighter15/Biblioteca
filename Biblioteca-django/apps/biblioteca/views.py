@@ -19,11 +19,11 @@ def login_view(request):
 
     return render(request, 'biblioteca/login.html', {'form': form})
 
-@login_required
+
 def index(request):
     return render(request, 'biblioteca/index.html')
 
-@login_required
+
 def lista_usuarios(request):
     usuarios = Usuario.objects.all()
     return render(request, 'biblioteca/lista_usuarios.html', {'usuarios': usuarios})
