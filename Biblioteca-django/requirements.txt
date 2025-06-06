@@ -7,3 +7,4 @@ django-filter
 dj-database-url
 gunicorn
 python-dotenv
+whitenoise
