@@ -13,6 +13,10 @@ DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 # Ajusta los hosts permitidos (agrega más si usas otros dominios o localhost)
 ALLOWED_HOSTS = ['bibliotecacesar.up.railway.app', 'localhost', '127.0.0.1']
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://bibliotecacesar.up.railway.app',
+]
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
